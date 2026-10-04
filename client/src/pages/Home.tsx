@@ -67,7 +67,7 @@ const valueLabels: { key: keyof SensitivityValues; label: string; icon: string }
   { key: "awm", label: "AWM", icon: "⌁" },
 ];
 
-type View = "home" | "history" | "favorites" | "auxilio" | "info" | "profile";
+type View = "auxilio" | "info" | "profile";
 type AdminView = "overview" | "licenses";
 const ACTIVATION_NOTICE_STORAGE_KEY = "rbxis_activation_notice_hwid_v1";
 
@@ -202,18 +202,15 @@ function InstallNotice() {
 
 function UserShell({ children, view, onChangeView, session, onLogout }: { children: React.ReactNode; view: View; onChangeView: (view: View) => void; session: { username: string; planId: string; expiresAt: Date | string; deviceId?: string | null }; onLogout: () => void }) {
   const nav: { id: View; label: string; icon: React.ElementType }[] = [
-    { id: "home", label: "Gerador", icon: LayoutDashboard },
     { id: "auxilio", label: "Auxílio", icon: SlidersHorizontal },
-    { id: "history", label: "Histórico", icon: History },
-    { id: "favorites", label: "Favoritos", icon: Star },
     { id: "info", label: "Sobre", icon: CircleHelp },
+    { id: "profile", label: "Conta", icon: UserRound },
   ];
   return <div className="app-shell yx-user-shell">
     <header className="yx-user-topbar">
       <div className="yx-user-brand"><AppLogo compact /></div>
       <nav className="yx-user-tabs" aria-label="Navegação principal">
         {nav.map(item => <button key={item.id} className={view === item.id ? "active" : ""} onClick={() => onChangeView(item.id)}><item.icon size={16} /><span>{item.label}</span></button>)}
-        <button className={view === "profile" ? "active" : ""} onClick={() => onChangeView("profile")}><UserRound size={16} /><span>Conta</span></button>
       </nav>
       <div className="yx-user-tools"><span className="yx-user-name">{String(session.username ?? "Usuário")}</span><button type="button" className="yx-logout" onClick={onLogout}><LogOut size={15} /><span>Sair</span></button></div>
     </header>
@@ -327,9 +324,9 @@ function ProfilePage({ session, onLogout }: { session: { username: string; planI
 }
 
 function UserApp({ session, onLogout }: { session: { username: string; planId: string; expiresAt: Date | string; deviceId?: string | null }; onLogout: () => void }) {
-  const [view, setView] = useState<View>("home");
+  const [view, setView] = useState<View>("auxilio");
   useEffect(() => { navigator.serviceWorker?.register("/sw.js").catch(() => undefined); }, []);
-  return <UserShell view={view} onChangeView={setView} session={session} onLogout={onLogout}>{view === "home" && <GeneratorPage session={session} />}{view === "auxilio" && <AuxilioPage />}{view === "history" && <HistoryPage />}{view === "favorites" && <HistoryPage favoritesOnly />}{view === "info" && <InfoPage />}{view === "profile" && <ProfilePage session={session} onLogout={onLogout} />}</UserShell>;
+  return <UserShell view={view} onChangeView={setView} session={session} onLogout={onLogout}>{view === "auxilio" && <AuxilioPage />}{view === "info" && <InfoPage />}{view === "profile" && <ProfilePage session={session} onLogout={onLogout} />}</UserShell>;
 }
 
 function AdminShell({ children, view, onChangeView, onLogout }: { children: React.ReactNode; view: AdminView; onChangeView: (view: AdminView) => void; onLogout: () => void }) {
