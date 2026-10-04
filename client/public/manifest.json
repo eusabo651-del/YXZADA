@@ -1,0 +1,18 @@
+{
+  "name": "YXZADA",
+  "short_name": "YXZADA",
+  "description": "Painel de sensibilidade personalizado para jogadores.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050506",
+  "theme_color": "#050506",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/yxzada-mark.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
