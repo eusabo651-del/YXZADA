@@ -163,7 +163,7 @@ function LoginScreen() {
           <span className="eyebrow"><span className="eyebrow-dot" /> ACESSO EXCLUSIVO</span>
           <h1>YXZADA<br /><em>CONTROL</em></h1>
           <p>Entre com sua chave para acessar o painel YXZADA.</p>
-          <div className="login-stats"><div><b>01</b><span>ANDROID<br />E IOS</span></div><div><b>∞</b><span>MELHOR<br />AUXILIO</span></div></div>
+          <div className="login-stats"><div><b>00</b><span>PURPOU<br />DEV</span></div><div><b>∞</b><span>MELHOR<br />DEV</span></div></div>
         </div>
         <div className="login-card-wrap">
           <div className="login-card-topline"><span className="red-line" /><span>YXZADA / {adminMode ? "PRIVATE" : "LICENSE"}</span><span className="online-dot" /></div>
