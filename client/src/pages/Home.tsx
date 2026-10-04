@@ -240,56 +240,28 @@ function ResultCard({ values, historyId, isFavorited, onFavorite }: { values: Se
 }
 
 function AuxilioPage() {
-  const [tab, setTab] = useState<"aimbot" | "sensi" | "modules" | "injection">("aimbot");
+  const [tab, setTab] = useState<"sensi" | "modules">("sensi");
   const [toggles, setToggles] = useState({ light: false, precise: false, stabilize: false, recoil: false, fine: false });
-  const [injecting, setInjecting] = useState<string | null>(null);
-  const [active, setActive] = useState<string | null>(null);
-  const [logs, setLogs] = useState<string[]>(["[SISTEMA] Auxílio carregado com segurança."]);
+  const [platform, setPlatform] = useState<"ios" | "android">("android");
   const toggle = (key: keyof typeof toggles) => setToggles(value => ({ ...value, [key]: !value[key] }));
-  const inject = (mode: string) => {
-    setInjecting(mode); setActive(null); setLogs(value => [...value, `[INFO] Preparando ${mode}...`]);
-    window.setTimeout(() => { setInjecting(null); setActive(mode); setLogs(value => [...value, `[SUCESSO] ${mode} ativo e funcionando!`]); toast.success("Módulo ativado"); }, 1500);
-  };
-  const openGame = (mode: "normal" | "max") => {
-    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    const max = mode === "max";
-    const androidPackage = max ? "com.dts.freefiremax" : "com.dts.freefireth";
-    const storeUrl = ios ? `https://apps.apple.com/app/${max ? "free-fire-max/id1480516829" : "free-fire/id1300146617"}` : `https://play.google.com/store/apps/details?id=${androidPackage}`;
-    const appUrl = ios ? "freefire://" : `intent://#Intent;scheme=freefire;package=${androidPackage};end`;
-    let leftPage = false;
-    const markHidden = () => { leftPage = true; };
-    document.addEventListener("visibilitychange", markHidden, { once: true });
-    window.location.href = appUrl;
-    window.setTimeout(() => { if (!leftPage && document.visibilityState === "visible") window.location.href = storeUrl; }, 1400);
-    setLogs(value => [...value, `[SISTEMA] Abrindo Free Fire ${max ? "MAX" : "Normal"}...`]);
-  };
   const tabs = [
-    { id: "aimbot" as const, label: "MIRA", icon: Crosshair },
     { id: "sensi" as const, label: "DESEMPENHO", icon: Gauge },
-    { id: "modules" as const, label: "MÓDULOS", icon: Grid3X3 },
-    { id: "injection" as const, label: "INJEÇÃO", icon: Sparkles },
+    { id: "modules" as const, label: "MÓDULO", icon: Grid3X3 },
   ];
-  const titles = { aimbot: "MIRA", sensi: "DESEMPENHO", modules: "MÓDULOS", injection: "INJEÇÃO" };
-  const descriptions = { aimbot: "Assistência e ajustes de precisão", sensi: "Escolha a plataforma e o perfil", modules: "Atalhos dos recursos do painel", injection: "Abrir Free Fire normal ou MAX" };
+  const titles = { sensi: "DESEMPENHO", modules: "MÓDULO" };
+  const descriptions = { sensi: "Selecione a plataforma do aparelho", modules: "Atalhos dos recursos do painel" };
   return <div className="page-view yx-aux-page">
     <section className="yx-aux-window">
+      <img className="yx-aux-background" src="/yxzada-start.png" alt="" aria-hidden="true" />
       <header className="yx-aux-heading">
-        <div className="yx-aux-emblem"><Crosshair size={25} /></div>
-        <div className="yx-aux-heading-copy"><span>YXZADA / PAINEL DE JOGO</span><h1>YXZADA painel</h1><p>Ajustes de mira e desempenho em uma interface simples.</p></div>
+        <div className="yx-aux-heading-copy"><span>YXZADA / PAINEL DE JOGO</span><h1>YXZADA painel</h1><p>Desempenho e módulos em uma interface simples.</p></div>
         <span className="yx-aux-status"><i /> ONLINE</span>
       </header>
       <nav className="yx-aux-tabs" aria-label="Seções do auxílio">
         {tabs.map(item => <button key={item.id} className={tab === item.id ? "active" : ""} onClick={() => setTab(item.id)}><item.icon size={17} /><span>{item.label}</span></button>)}
       </nav>
-      <div className="yx-aux-title"><div><span>YXZADA / {titles[tab]}</span><h2>{titles[tab] === "MIRA" ? "Assistência de mira" : titles[tab]}</h2><p>{descriptions[tab]}</p></div></div>
-      {tab === "aimbot" && <div className="aux-panel-list yx-aim-list">
-        <AuxToggle label="Assistência de Mira Leve" description="Movimento suave e natural" value={toggles.light} icon={Crosshair} onClick={() => toggle("light")} />
-        <AuxToggle label="Assistência de Mira Precisa" description="Ajuste preciso da resposta" value={toggles.precise} icon={Target} onClick={() => toggle("precise")} />
-        <AuxToggle label="Estabilização de Mira" description="Movimento mais consistente" value={toggles.stabilize} icon={Anchor} onClick={() => toggle("stabilize")} />
-        <AuxToggle label="Controle de Recuo" description="Ajuste fino do controle" value={toggles.recoil} icon={MoveDown} onClick={() => toggle("recoil")} />
-        <AuxToggle label="Ajuste Fino de Precisão" description="Personalize o perfil de mira" value={toggles.fine} icon={Gauge} onClick={() => toggle("fine")} />
-      </div>}
-      {tab === "sensi" && <div className="aux-center-panel yx-performance-panel"><Gauge size={38} /><h2>Selecione seu celular</h2><p>Escolha a plataforma para continuar no gerador.</p><div className="aux-choice-row"><button onClick={() => toast.info("Abra o Gerador e selecione iOS")}>iOS</button><button className="selected" onClick={() => toast.info("Abra o Gerador e selecione Android")}>Android</button></div></div>}
+      <div className="yx-aux-title"><div><span>YXZADA / {titles[tab]}</span><h2>{titles[tab]}</h2><p>{descriptions[tab]}</p></div></div>
+      {tab === "sensi" && <div className="aux-center-panel yx-performance-panel"><Gauge size={38} /><h2>Selecione seu celular</h2><p>Escolha a plataforma que você utiliza.</p><div className="aux-choice-row"><button className={platform === "ios" ? "selected" : ""} onClick={() => setPlatform("ios")}>iOS</button><button className={platform === "android" ? "selected" : ""} onClick={() => setPlatform("android")}>Android</button></div></div>}
       {tab === "modules" && <div className="aux-module-grid yx-module-grid">
         <AuxModule name="Mira leve" icon={Crosshair} active={toggles.light} onClick={() => toggle("light")} />
         <AuxModule name="Mira precisa" icon={Target} active={toggles.precise} onClick={() => toggle("precise")} />
@@ -297,12 +269,10 @@ function AuxilioPage() {
         <AuxModule name="Controle de recuo" icon={MoveDown} active={toggles.recoil} onClick={() => toggle("recoil")} />
         <AuxModule name="Ajuste fino" icon={Gauge} active={toggles.fine} onClick={() => toggle("fine")} />
       </div>}
-      {tab === "injection" && <div className="aux-injection yx-injection"><div className="aux-action-row"><button onClick={() => { openGame("normal"); inject("FF NORMAL"); }} disabled={Boolean(injecting)}><Sparkles size={17} /> ABRIR FF NORMAL</button><button onClick={() => { openGame("max"); inject("FF MAX"); }} disabled={Boolean(injecting)}><Sparkles size={17} /> ABRIR FF MAX</button></div><div className={`aux-injection-state ${active ? "active" : ""}`}>{injecting ? <><RefreshCw className="spin" size={18} /> Preparando...</> : active ? <><span className="aux-green-dot" /> {active} pronto</> : "Escolha uma versão do jogo"}</div><div className="aux-console">{logs.map((log, index) => <div key={`${log}-${index}`} className={log.includes("SUCESSO") ? "success" : ""}><span>[{new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}]</span> {log}</div>)}</div></div>}
       <footer className="aux-footer">YXZADA <b>· PAINEL DE AUXÍLIO</b></footer>
     </section>
   </div>;
 }
-function AuxToggle({ label, description, value, icon: Icon, onClick }: { label: string; description: string; value: boolean; icon: React.ElementType; onClick: () => void }) { return <button type="button" className="aux-toggle-row yx-aim-row" aria-pressed={value} onClick={onClick}><Icon className="yx-aim-icon" size={22} /><span><b>{label}</b><small>{description}</small></span><i className={value ? "on" : ""}><em /></i></button>; }
 function AuxModule({ name, icon: Icon, active, onClick }: { name: string; icon: React.ElementType; active: boolean; onClick: () => void }) { return <button className={`aux-module ${active ? "active" : ""}`} onClick={onClick}><Icon size={24} /><span><b>{name}</b><small>{active ? "Ativado" : "Toque para ativar"}</small></span><i>{active ? <Check size={14} /> : <ChevronRight size={15} />}</i></button>; }
 
 function HistoryPage({ favoritesOnly = false }: { favoritesOnly?: boolean }) {

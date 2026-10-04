@@ -479,10 +479,10 @@ body { background: #060506; }
 /* Auxílio: painel compacto, abas internas no topo e linhas de controle legíveis no celular. */
 .yx-aux-page { width: min(1120px, calc(100% - 64px)); padding: 36px 0 56px; }
 .yx-aux-window { position: relative; overflow: hidden; width: 100%; padding: clamp(18px, 3vw, 34px); border: 1px solid #392232; border-radius: 20px; background: radial-gradient(ellipse at 4% 0%, #31112266, transparent 34%), linear-gradient(145deg, #121011, #090809 68%); box-shadow: 0 20px 65px #0009, 0 0 46px #b3236b0c; }
-.yx-aux-window::before { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background-image: linear-gradient(135deg, #f05db00a 1px, transparent 1px); background-size: 34px 34px; content: ""; mask-image: linear-gradient(to bottom right, #000, transparent 56%); }
-.yx-aux-heading, .yx-aux-tabs, .yx-aux-title, .yx-aim-list, .yx-module-grid, .yx-injection, .yx-aux-window > .aux-footer { position: relative; z-index: 1; }
-.yx-aux-heading { display: flex; align-items: center; gap: 15px; min-height: 92px; padding: 2px 0 19px; }
-.yx-aux-emblem { display: grid; flex: 0 0 55px; place-items: center; width: 55px; height: 55px; border: 1px solid #a63470; border-radius: 16px; color: #f05db0; background: radial-gradient(circle at 50% 50%, #3a152c, #120d12); box-shadow: 0 0 25px #dc3b941e; }
+.yx-aux-window::before { position: absolute; z-index: 1; inset: 0; pointer-events: none; border-radius: inherit; background-image: linear-gradient(135deg, #f05db00a 1px, transparent 1px); background-size: 34px 34px; content: ""; mask-image: linear-gradient(to bottom right, #000, transparent 56%); }
+.yx-aux-window > .yx-aux-background { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 51%; opacity: .18; filter: grayscale(1) brightness(.62) contrast(1.08); pointer-events: none; }
+.yx-aux-window > :not(.yx-aux-background) { position: relative; z-index: 2; }
+.yx-aux-heading { display: flex; align-items: center; gap: 15px; min-height: 72px; padding: 2px 0 14px; }
 .yx-aux-heading-copy { min-width: 0; }
 .yx-aux-heading-copy > span, .yx-aux-title > div > span { color: #e45aa5; font-size: 9px; font-weight: 800; letter-spacing: .18em; }
 .yx-aux-heading-copy h1 { margin: 4px 0 2px; color: #fff; font-size: clamp(20px, 4vw, 30px); letter-spacing: -.055em; text-transform: uppercase; }
@@ -538,8 +538,7 @@ body { background: #060506; }
   .yx-user-main .page-view { width: calc(100% - 28px); padding: 22px 0 38px; }
   .yx-aux-page { width: 100% !important; padding: 14px 12px 28px !important; }
   .yx-aux-window { padding: 16px 14px; border-radius: 17px; }
-  .yx-aux-heading { min-height: 78px; gap: 11px; padding-bottom: 13px; }
-  .yx-aux-emblem { flex-basis: 46px; width: 46px; height: 46px; border-radius: 13px; }
+  .yx-aux-heading { min-height: 64px; gap: 11px; padding-bottom: 13px; }
   .yx-aux-heading-copy > span { font-size: 7px; letter-spacing: .13em; }
   .yx-aux-heading-copy h1 { font-size: 21px; }
   .yx-aux-heading-copy p { font-size: 9px; }
