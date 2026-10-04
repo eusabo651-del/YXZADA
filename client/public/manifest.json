@@ -1,7 +1,7 @@
 {
   "name": "YXZADA",
   "short_name": "YXZADA",
-  "description": "Painel de sensibilidade personalizado para jogadores.",
+  "description": "Auxilio de mira.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#050506",
