@@ -1,5 +1,5 @@
-const CACHE_NAME = "yxzada-shell-v2";
-const APP_SHELL = ["/", "/manifest.json", "/yxzada-mark.svg", "/yxzada-mark.png"];
+const CACHE_NAME = "yxzada-shell-v3";
+const APP_SHELL = ["/", "/manifest.json", "/yxzada-mark.svg", "/yxzada-eye-180.png", "/yxzada-eye-192.png", "/yxzada-eye-512.png", "/yxzada-eye-maskable-512.png", "/yxzada-start.png"];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
