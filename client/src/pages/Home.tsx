@@ -208,7 +208,6 @@ function UserShell({ children, view, onChangeView, session, onLogout }: { childr
   ];
   return <div className="app-shell yx-user-shell">
     <header className="yx-user-topbar">
-      <div className="yx-user-brand"><AppLogo compact /></div>
       <nav className="yx-user-tabs" aria-label="Navegação principal">
         {nav.map(item => <button key={item.id} className={view === item.id ? "active" : ""} onClick={() => onChangeView(item.id)}><item.icon size={16} /><span>{item.label}</span></button>)}
       </nav>
@@ -316,7 +315,21 @@ function LoadingList() { return <div className="loading-list">{[1, 2, 3].map(ite
 function EmptyState({ favoritesOnly }: { favoritesOnly: boolean }) { return <div className="empty-state"><div><History size={24} /></div><h3>{favoritesOnly ? "Nenhum favorito ainda" : "Seu histórico está vazio"}</h3><p>{favoritesOnly ? "Marque uma configuração com estrela para encontrá-la aqui." : "Gere sua primeira sensibilidade e ela aparecerá aqui."}</p></div>; }
 
 function InfoPage() {
-  return <div className="page-view"><PageHeading kicker="YXZADA" title="Feito para evoluir." description="Precisão é detalhe. Controle é consistência." /><div className="info-grid"><section className="info-feature"><div className="info-icon"><Crosshair size={24} /></div><span className="tag tag-red">YXZADA</span><h2>Uma configuração<br /><em>no seu ritmo.</em></h2><p>Um painel simples para organizar suas configurações e acessar as ferramentas da comunidade.</p><div className="info-points"><span><Check size={15} /> Acesso personalizado</span><span><Check size={15} /> Histórico sincronizado</span><span><Check size={15} /> Licença vinculada ao aparelho</span></div></section><section className="contact-panel"><span className="card-step">PRECISA DE AJUDA?</span><h3>Fale com a comunidade.</h3><p>Entre no nosso Discord para receber suporte e acompanhar novidades.</p><a className="contact-button" href="https://discord.gg/hbsWea6PNJ" target="_blank" rel="noreferrer"><span className="contact-letter">D</span><span><b>Entrar no Discord</b><small>Comunidade · suporte</small></span><ChevronRight size={17} /></a></section></div><div className="quote-strip"><span>“</span><p>O Senhor é a minha força e o meu escudo; nele confiou o meu coração.</p><span>SALMOS 28:7</span></div></div>;
+  return <div className="page-view">
+    <PageHeading kicker="YXZADA" title="Feito para evoluir." description="Precisão é detalhe. Controle é consistência." />
+    <div className="about-layout">
+      <section className="about-eye-banner" aria-label="Banner YXZADA">
+        <img src="/yxzada-start.png" alt="Olho em preto e branco" />
+      </section>
+      <section className="contact-panel">
+        <span className="card-step">PRECISA DE AJUDA?</span>
+        <h3>Fale com a comunidade.</h3>
+        <p>Entre no nosso Discord para receber suporte e acompanhar novidades.</p>
+        <a className="contact-button" href="https://discord.gg/hbsWea6PNJ" target="_blank" rel="noreferrer"><span className="contact-letter">D</span><span><b>Entrar no Discord</b><small>Comunidade · suporte</small></span><ChevronRight size={17} /></a>
+      </section>
+    </div>
+    <div className="quote-strip"><span>“</span><p>O Senhor é a minha força e o meu escudo; nele confiou o meu coração.</p><span>SALMOS 28:7</span></div>
+  </div>;
 }
 
 function ProfilePage({ session, onLogout }: { session: { username: string; planId: string; expiresAt: Date | string; deviceId?: string | null }; onLogout: () => void }) {
